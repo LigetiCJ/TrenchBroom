@@ -25,6 +25,7 @@
 #include "Model/Tag.h"
 
 #include <vecmath/forward.h>
+#include <vecmath/bbox.h>
 
 #include <string>
 #include <vector>
@@ -217,6 +218,15 @@ namespace TrenchBroom {
             void nodeWillChange();
             void nodeDidChange();
 
+            friend class NotifyPhysicalBoundsChange;
+            class NotifyPhysicalBoundsChange {
+            private:
+                Node* m_node;
+                vm::bbox3 m_oldBounds;
+            public:
+                explicit NotifyPhysicalBoundsChange(Node* node);
+                ~NotifyPhysicalBoundsChange();
+            };
             void nodePhysicalBoundsDidChange(vm::bbox3 oldBounds);
         private:
             void childWillChange(Node* node);

@@ -24,7 +24,7 @@
 #include "Model/BrushNode.h"
 #include "Model/BrushFace.h"
 #include "Model/Entity.h"
-#include "Model/Layer.h"
+#include "Model/LayerNode.h"
 #include "Model/World.h"
 
 #include <vecmath/vec.h>

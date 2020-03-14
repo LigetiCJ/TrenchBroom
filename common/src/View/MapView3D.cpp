@@ -267,7 +267,7 @@ namespace TrenchBroom {
             }
         private:
             void doVisit(const Model::World*) override   {}
-            void doVisit(const Model::Layer*) override   {}
+            void doVisit(const Model::LayerNode*) override   {}
             void doVisit(const Model::Group*) override   {}
 
             void doVisit(const Model::Entity* entity) override {
@@ -311,7 +311,7 @@ namespace TrenchBroom {
             }
         private:
             void doVisit(const Model::World*) override   {}
-            void doVisit(const Model::Layer*) override   {}
+            void doVisit(const Model::LayerNode*) override   {}
             void doVisit(const Model::Group*) override   {}
 
             void doVisit(const Model::Entity* entity) override {

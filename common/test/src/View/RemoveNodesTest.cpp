@@ -25,7 +25,7 @@
 #include "Model/BrushBuilder.h"
 #include "Model/Entity.h"
 #include "Model/Group.h"
-#include "Model/Layer.h"
+#include "Model/LayerNode.h"
 #include "Model/World.h"
 #include "View/MapDocumentTest.h"
 #include "View/MapDocument.h"
@@ -35,7 +35,7 @@ namespace TrenchBroom {
         class RemoveNodesTest : public MapDocumentTest {};
 
         TEST_F(RemoveNodesTest, removeLayer) {
-            Model::Layer* layer = new Model::Layer("Layer 1");
+            Model::LayerNode* layer = new Model::LayerNode("Layer 1");
             document->addNode(layer, document->world());
 
             document->removeNode(layer);
@@ -46,7 +46,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(RemoveNodesTest, removeEmptyBrushEntity) {
-            Model::Layer* layer = new Model::Layer("Layer 1");
+            Model::LayerNode* layer = new Model::LayerNode("Layer 1");
             document->addNode(layer, document->world());
 
             Model::Entity* entity = new Model::Entity();

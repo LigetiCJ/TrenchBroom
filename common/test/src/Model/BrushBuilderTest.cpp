@@ -19,7 +19,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Model/Brush.h"
+#include "Model/BrushNode.h"
 #include "Model/BrushBuilder.h"
 #include "Model/BrushFace.h"
 #include "Model/MapFormat.h"
@@ -34,7 +34,7 @@ namespace TrenchBroom {
             World world(MapFormat::Standard);
 
             BrushBuilder builder(&world, worldBounds);
-            const Brush* cube = builder.createCube(128.0, "someName");
+            const BrushNode* cube = builder.createCube(128.0, "someName");
             ASSERT_TRUE(cube != nullptr);
             ASSERT_EQ(vm::bbox3d(-64.0, +64.0), cube->logicalBounds());
 
@@ -62,7 +62,7 @@ namespace TrenchBroom {
             defaultAttribs.setColor(Color(255, 255, 255, 255));
 
             BrushBuilder builder(&world, worldBounds, defaultAttribs);
-            const Brush* cube = builder.createCube(128.0, "someName");
+            const BrushNode* cube = builder.createCube(128.0, "someName");
             ASSERT_TRUE(cube != nullptr);
             ASSERT_EQ(vm::bbox3d(-64.0, +64.0), cube->logicalBounds());
 

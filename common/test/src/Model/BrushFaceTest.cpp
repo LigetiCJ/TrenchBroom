@@ -25,7 +25,7 @@
 #include "Assets/Texture.h"
 #include "IO/NodeReader.h"
 #include "IO/TestParserStatus.h"
-#include "Model/Brush.h"
+#include "Model/BrushNode.h"
 #include "Model/BrushBuilder.h"
 #include "Model/BrushFace.h"
 #include "Model/BrushFaceAttributes.h"
@@ -379,7 +379,7 @@ namespace TrenchBroom {
          * For the sides of a cube, a horizontal or vertical flip should have no effect on texturing
          * when texture lock is off.
          */
-        static void checkTextureLockOffWithVerticalFlip(const Brush* cube) {
+        static void checkTextureLockOffWithVerticalFlip(const BrushNode* cube) {
             const vm::mat4x4 transform = vm::mirror_matrix<double>(vm::axis::z);
             const BrushFace* origFace = cube->findFace(vm::vec3::pos_x());
 
@@ -402,7 +402,7 @@ namespace TrenchBroom {
             delete face;
         }
 
-        static void checkTextureLockOffWithScale(const Brush* cube) {
+        static void checkTextureLockOffWithScale(const BrushNode* cube) {
             const vm::vec3 mins(cube->logicalBounds().min);
 
             // translate the cube mins to the origin, scale by 2 in the X axis, then translate back
@@ -439,7 +439,7 @@ namespace TrenchBroom {
             World world(MapFormat::Standard);
 
             BrushBuilder builder(&world, worldBounds);
-            const Brush* cube = builder.createCube(128.0, "");
+            const BrushNode* cube = builder.createCube(128.0, "");
             const std::vector<BrushFace*>& faces = cube->faces();
 
             for (size_t i = 0; i < faces.size(); ++i) {
@@ -460,7 +460,7 @@ namespace TrenchBroom {
             World world(MapFormat::Valve);
 
             BrushBuilder builder(&world, worldBounds);
-            const Brush* cube = builder.createCube(128.0, "");
+            const BrushNode* cube = builder.createCube(128.0, "");
             const std::vector<BrushFace*>& faces = cube->faces();
 
             for (size_t i = 0; i < faces.size(); ++i) {
@@ -481,7 +481,7 @@ namespace TrenchBroom {
             World world(MapFormat::Valve);
 
             BrushBuilder builder(&world, worldBounds);
-            Brush* cube = builder.createCube(128.0, "");
+            BrushNode* cube = builder.createCube(128.0, "");
 
             BrushFace* topFace = cube->findFace(vm::vec3(0.0, 0.0, 1.0));
             ASSERT_NE(nullptr, topFace);
@@ -534,7 +534,7 @@ namespace TrenchBroom {
             IO::NodeReader reader(data, world);
 
             std::vector<Node*> nodes = reader.read(worldBounds, status);
-            Brush* pyramidLight = static_cast<Brush*>(nodes.at(0)->children().at(0));
+            BrushNode* pyramidLight = static_cast<BrushNode*>(nodes.at(0)->children().at(0));
             ASSERT_NE(nullptr, pyramidLight);
 
             // find the faces
@@ -590,7 +590,7 @@ namespace TrenchBroom {
             IO::NodeReader reader(data, world);
 
             std::vector<Node*> nodes = reader.read(worldBounds, status);
-            Brush* pyramidLight = static_cast<Brush*>(nodes.at(0)->children().at(0));
+            BrushNode* pyramidLight = static_cast<BrushNode*>(nodes.at(0)->children().at(0));
             ASSERT_NE(nullptr, pyramidLight);
 
             // find the faces
@@ -650,7 +650,7 @@ namespace TrenchBroom {
             IO::NodeReader reader(data, world);
 
             std::vector<Node*> nodes = reader.read(worldBounds, status);
-            Brush* brush = static_cast<Brush*>(nodes.at(0)->children().at(0));
+            BrushNode* brush = static_cast<BrushNode*>(nodes.at(0)->children().at(0));
             ASSERT_NE(nullptr, brush);
 
             // find the face

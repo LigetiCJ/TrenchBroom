@@ -21,7 +21,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Model/Brush.h"
+#include "Model/BrushNode.h"
 #include "Model/BrushBuilder.h"
 #include "Model/Entity.h"
 #include "Model/Group.h"
@@ -52,7 +52,7 @@ namespace TrenchBroom {
             Model::Entity* entity = new Model::Entity();
             document->addNode(entity, layer);
 
-            Model::Brush* brush = createBrush();
+            Model::BrushNode* brush = createBrush();
             document->addNode(brush, entity);
 
             document->removeNode(brush);
@@ -70,7 +70,7 @@ namespace TrenchBroom {
 
             document->openGroup(group);
 
-            Model::Brush* brush = createBrush();
+            Model::BrushNode* brush = createBrush();
             document->addNode(brush, document->currentParent());
 
             document->removeNode(brush);
@@ -95,7 +95,7 @@ namespace TrenchBroom {
 
             document->openGroup(inner);
 
-            Model::Brush* brush = createBrush();
+            Model::BrushNode* brush = createBrush();
             document->addNode(brush, document->currentParent());
 
             document->removeNode(brush);

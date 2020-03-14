@@ -22,7 +22,7 @@
 
 #include "TestUtils.h"
 #include "View/Grid.h"
-#include "Model/Brush.h"
+#include "Model/BrushNode.h"
 #include "Model/BrushBuilder.h"
 #include "Model/BrushFace.h"
 #include "Assets/Texture.h"
@@ -189,18 +189,18 @@ namespace TrenchBroom {
             ASSERT_EQ(pointOnGrid, pointOffGrid + grid05.moveDeltaForPoint(pointOffGrid, inputDelta));
         }
 
-        static Model::Brush* makeCube128() {
+        static Model::BrushNode* makeCube128() {
             Assets::Texture texture("testTexture", 64, 64);
             Model::World world(Model::MapFormat::Standard);
             Model::BrushBuilder builder(&world, worldBounds);
-            Model::Brush* cube = builder.createCube(128.0, "");
+            Model::BrushNode* cube = builder.createCube(128.0, "");
             return cube;
         }
 
         TEST(GridTest, moveDeltaForFace) {
             const auto grid16 = Grid(4);
 
-            Model::Brush* cube = makeCube128();
+            Model::BrushNode* cube = makeCube128();
             Model::BrushFace* topFace = cube->findFace(vm::vec3::pos_z());
 
             ASSERT_DOUBLE_EQ(64.0, topFace->boundsCenter().z());
@@ -216,7 +216,7 @@ namespace TrenchBroom {
         TEST(GridTest, moveDeltaForFace_SubInteger) {
             const auto grid05 = Grid(-1);
 
-            Model::Brush* cube = makeCube128();
+            Model::BrushNode* cube = makeCube128();
             Model::BrushFace* topFace = cube->findFace(vm::vec3::pos_z());
 
             ASSERT_DOUBLE_EQ(64.0, topFace->boundsCenter().z());

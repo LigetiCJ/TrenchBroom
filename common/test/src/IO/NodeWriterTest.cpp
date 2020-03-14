@@ -20,7 +20,7 @@
 #include <gtest/gtest.h>
 
 #include "IO/NodeWriter.h"
-#include "Model/Brush.h"
+#include "Model/BrushNode.h"
 #include "Model/BrushBuilder.h"
 #include "Model/BrushFace.h"
 #include "Model/BrushFaceAttributes.h"
@@ -73,13 +73,13 @@ namespace TrenchBroom {
             map.addOrUpdateAttribute("classname", "worldspawn");
 
             Model::BrushBuilder builder(&map, worldBounds);
-            Model::Brush* brush1 = builder.createCube(64.0, "none");
+            Model::BrushNode* brush1 = builder.createCube(64.0, "none");
             for (auto* face : brush1->faces()) {
                 face->setColor(Color(1.0f, 2.0f, 3.0f));
             }
             map.defaultLayer()->addChild(brush1);
 
-            Model::Brush* brush2 = builder.createCube(64.0, "none");
+            Model::BrushNode* brush2 = builder.createCube(64.0, "none");
             map.defaultLayer()->addChild(brush2);
 
             std::stringstream str;
@@ -122,7 +122,7 @@ R"(// entity 0
             map.addOrUpdateAttribute("classname", "worldspawn");
 
             Model::BrushBuilder builder(&map, worldBounds);
-            Model::Brush* brush1 = builder.createCube(64.0, "none");
+            Model::BrushNode* brush1 = builder.createCube(64.0, "none");
             for (auto* face : brush1->faces()) {
                 face->setSurfaceValue(32.0f);
             }
@@ -161,7 +161,7 @@ R"(// entity 0
             map.addOrUpdateAttribute("classname", "worldspawn");
 
             Model::BrushBuilder builder(&map, worldBounds);
-            Model::Brush* brush = builder.createCube(64.0, "none");
+            Model::BrushNode* brush = builder.createCube(64.0, "none");
             map.defaultLayer()->addChild(brush);
 
             std::stringstream str;
@@ -197,7 +197,7 @@ R"(// entity 0
             map.addChild(layer);
 
             Model::BrushBuilder builder(&map, worldBounds);
-            Model::Brush* brush = builder.createCube(64.0, "none");
+            Model::BrushNode* brush = builder.createCube(64.0, "none");
             layer->addChild(brush);
 
             std::stringstream str;
@@ -241,7 +241,7 @@ R"(// entity 0
             map.defaultLayer()->addChild(group);
 
             Model::BrushBuilder builder(&map, worldBounds);
-            Model::Brush* brush = builder.createCube(64.0, "none");
+            Model::BrushNode* brush = builder.createCube(64.0, "none");
             group->addChild(brush);
 
             std::stringstream str;
@@ -287,7 +287,7 @@ R"(// entity 0
             layer->addChild(group);
 
             Model::BrushBuilder builder(&map, worldBounds);
-            Model::Brush* brush = builder.createCube(64.0, "none");
+            Model::BrushNode* brush = builder.createCube(64.0, "none");
             group->addChild(brush);
 
             std::stringstream str;
@@ -344,7 +344,7 @@ R"(// entity 0
             outer->addChild(inner);
 
             Model::BrushBuilder builder(&map, worldBounds);
-            Model::Brush* brush = builder.createCube(64.0, "none");
+            Model::BrushNode* brush = builder.createCube(64.0, "none");
             inner->addChild(brush);
 
             std::stringstream str;
@@ -402,10 +402,10 @@ R"(// entity 0
 
             Model::BrushBuilder builder(&map, worldBounds);
 
-            Model::Brush* worldBrush = builder.createCube(64.0, "some");
+            Model::BrushNode* worldBrush = builder.createCube(64.0, "some");
             Model::Group* outer = map.createGroup("Outer Group");
             Model::Group* inner = map.createGroup("Inner Group");
-            Model::Brush* innerBrush = builder.createCube(64.0, "none");
+            Model::BrushNode* innerBrush = builder.createCube(64.0, "none");
 
             inner->addChild(innerBrush);
             outer->addChild(inner);
@@ -461,7 +461,7 @@ R"(// entity 0
 
             Model::World map(Model::MapFormat::Standard);
             Model::BrushBuilder builder(&map, worldBounds);
-            Model::Brush* brush = builder.createCube(64.0, "none");
+            Model::BrushNode* brush = builder.createCube(64.0, "none");
 
             std::stringstream str;
             NodeWriter writer(map, str);

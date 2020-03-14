@@ -21,7 +21,7 @@
 
 #include "IO/TestParserStatus.h"
 #include "IO/WorldReader.h"
-#include "Model/Brush.h"
+#include "Model/BrushNode.h"
 #include "Model/BrushFace.h"
 #include "Model/Entity.h"
 #include "Model/Layer.h"
@@ -181,7 +181,7 @@ namespace TrenchBroom {
             Model::Node* defaultLayer = world->children().front();
             ASSERT_EQ(1u, defaultLayer->childCount());
 
-            Model::Brush* brush = static_cast<Model::Brush*>(defaultLayer->children().front());
+            Model::BrushNode* brush = static_cast<Model::BrushNode*>(defaultLayer->children().front());
             const std::vector<Model::BrushFace*>& faces = brush->faces();
             ASSERT_EQ(6u, faces.size());
 
@@ -231,7 +231,7 @@ namespace TrenchBroom {
             Model::Node* defaultLayer = world->children().front();
             ASSERT_EQ(1u, defaultLayer->childCount());
 
-            Model::Brush* brush = static_cast<Model::Brush*>(defaultLayer->children().front());
+            Model::BrushNode* brush = static_cast<Model::BrushNode*>(defaultLayer->children().front());
             const std::vector<Model::BrushFace*>& faces = brush->faces();
             ASSERT_EQ(6u, faces.size());
 
@@ -269,7 +269,7 @@ namespace TrenchBroom {
             Model::Node* defaultLayer = world->children().front();
             ASSERT_EQ(1u, defaultLayer->childCount());
 
-            Model::Brush* brush = static_cast<Model::Brush*>(defaultLayer->children().front());
+            Model::BrushNode* brush = static_cast<Model::BrushNode*>(defaultLayer->children().front());
             const std::vector<Model::BrushFace*> faces = brush->faces();
             ASSERT_EQ(6u, faces.size());
 
@@ -311,7 +311,7 @@ namespace TrenchBroom {
             Model::Node* defaultLayer = world->children().front();
             ASSERT_EQ(1u, defaultLayer->childCount());
 
-            Model::Brush* brush = static_cast<Model::Brush*>(defaultLayer->children().front());
+            Model::BrushNode* brush = static_cast<Model::BrushNode*>(defaultLayer->children().front());
             const std::vector<Model::BrushFace*> faces = brush->faces();
             ASSERT_EQ(6u, faces.size());
             ASSERT_TRUE(findFaceByPoints(faces, vm::vec3(308.0, 108.0, 176.0), vm::vec3(308.0, 132.0, 176.0),
@@ -480,7 +480,7 @@ namespace TrenchBroom {
             Model::Node* defaultLayer = world->children().front();
             ASSERT_EQ(1u, defaultLayer->childCount());
 
-            const auto* brush = static_cast<Model::Brush*>(defaultLayer->children().front());
+            const auto* brush = static_cast<Model::BrushNode*>(defaultLayer->children().front());
             ASSERT_TRUE(vm::is_equal(Color(5, 6, 7), brush->findFace("rtz/c_mf_v3cw")->color(), 0.1f));
             ASSERT_EQ(1, brush->findFace("rtz/b_rc_v16w")->surfaceContents());
             ASSERT_EQ(2, brush->findFace("rtz/b_rc_v16w")->surfaceFlags());

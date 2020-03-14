@@ -19,7 +19,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Model/Brush.h"
+#include "Model/BrushNode.h"
 #include "Model/BrushBuilder.h"
 #include "Model/Entity.h"
 #include "Model/Group.h"
@@ -32,7 +32,7 @@ namespace TrenchBroom {
         class SelectionCommandTest : public MapDocumentTest {};
 
         TEST_F(SelectionCommandTest, faceSelectionUndoAfterTranslationUndo) {
-            Model::Brush* brush = createBrush();
+            Model::BrushNode* brush = createBrush();
             ASSERT_EQ(vm::vec3::zero(), brush->logicalBounds().center());
 
             document->addNode(brush, document->currentParent());
@@ -47,7 +47,7 @@ namespace TrenchBroom {
 
             // select the brush
             document->select(brush);
-            ASSERT_EQ(std::vector<Model::Brush*>({ brush }), document->selectedNodes().brushes());
+            ASSERT_EQ(std::vector<Model::BrushNode*>({ brush }), document->selectedNodes().brushes());
 
             // translate the brush
             document->translateObjects(vm::vec3(10.0, 0.0, 0.0));
@@ -57,11 +57,11 @@ namespace TrenchBroom {
 
             document->undoCommand();
             ASSERT_EQ(vm::vec3::zero(), brush->logicalBounds().center());
-            ASSERT_EQ(std::vector<Model::Brush*>({ brush }), document->selectedNodes().brushes());
+            ASSERT_EQ(std::vector<Model::BrushNode*>({ brush }), document->selectedNodes().brushes());
             ASSERT_EQ(std::vector<Model::BrushFace*>({}), document->selectedBrushFaces());
 
             document->undoCommand();
-            ASSERT_EQ(std::vector<Model::Brush*>({}), document->selectedNodes().brushes());
+            ASSERT_EQ(std::vector<Model::BrushNode*>({}), document->selectedNodes().brushes());
             ASSERT_EQ(std::vector<Model::BrushFace*>({}), document->selectedBrushFaces());
 
             document->undoCommand();

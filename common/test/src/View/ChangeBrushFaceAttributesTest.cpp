@@ -20,7 +20,7 @@
 #include <gtest/gtest.h>
 
 #include "TestUtils.h"
-#include "Model/Brush.h"
+#include "Model/BrushNode.h"
 #include "Model/BrushFace.h"
 #include "Model/ChangeBrushFaceAttributesRequest.h"
 #include "Model/Entity.h"
@@ -39,7 +39,7 @@ namespace TrenchBroom {
         };
 
         TEST_F(ChangeBrushFaceAttributesTest, resetAttributesOfValve220Face) {
-            Model::Brush* brush = createBrush();
+            Model::BrushNode* brush = createBrush();
             document->addNode(brush, document->currentParent());
 
             Model::BrushFace* face = brush->faces().front();

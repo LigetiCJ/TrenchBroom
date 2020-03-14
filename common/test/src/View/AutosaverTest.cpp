@@ -22,7 +22,7 @@
 #include "Logger.h"
 #include "IO/Path.h"
 #include "IO/TestEnvironment.h"
-#include "Model/Brush.h"
+#include "Model/BrushNode.h"
 #include "Model/Layer.h"
 #include "View/Autosaver.h"
 #include "View/MapDocumentTest.h"

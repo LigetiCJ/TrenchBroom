@@ -29,9 +29,9 @@
 namespace TrenchBroom {
     namespace Model {
         Node* hitToNode(const Hit& hit) {
-            if (hit.type() == EntityNode::EntityHit) {
+            if (hit.type() == EntityNode::EntityHitType) {
                 return hit.target<EntityNode*>();
-            } else if (hit.type() == BrushNode::BrushHit) {
+            } else if (hit.type() == BrushNode::BrushHitType) {
                 BrushFace* face = hit.target<BrushFace*>();
                 return face->brush()->node();
             } else {
@@ -40,9 +40,9 @@ namespace TrenchBroom {
         }
 
         Object* hitToObject(const Hit& hit) {
-            if (hit.type() == EntityNode::EntityHit) {
+            if (hit.type() == EntityNode::EntityHitType) {
                 return hit.target<EntityNode*>();
-            } else if (hit.type() == BrushNode::BrushHit) {
+            } else if (hit.type() == BrushNode::BrushHitType) {
                 BrushFace* face = hit.target<BrushFace*>();
                 return face->brush()->node();
             } else {
@@ -51,7 +51,7 @@ namespace TrenchBroom {
         }
 
         EntityNode* hitToEntity(const Hit& hit) {
-            if (hit.type() == EntityNode::EntityHit) {
+            if (hit.type() == EntityNode::EntityHitType) {
                 return hit.target<EntityNode*>();
             } else {
                 return nullptr;
@@ -59,7 +59,7 @@ namespace TrenchBroom {
         }
 
         BrushNode* hitToBrush(const Hit& hit) {
-            if (hit.type() == BrushNode::BrushHit) {
+            if (hit.type() == BrushNode::BrushHitType) {
                 return hit.target<BrushFace*>()->brush()->node();
             } else {
                 return nullptr;
@@ -67,7 +67,7 @@ namespace TrenchBroom {
         }
 
         BrushFace* hitToFace(const Hit& hit) {
-            if (hit.type() == BrushNode::BrushHit) {
+            if (hit.type() == BrushNode::BrushHitType) {
                 return hit.target<BrushFace*>();
             } else {
                 return nullptr;

@@ -53,7 +53,7 @@ namespace TrenchBroom {
         private:
             friend class SetTempFaceLinks;
         public:
-            static const HitType::Type BrushHit;
+            static const HitType::Type BrushHitType;
         private:
             class AddFaceToGeometryCallback;
             class HealEdgesCallback;

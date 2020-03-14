@@ -43,6 +43,14 @@ namespace TrenchBroom {
             ensure(m_factory != nullptr, "factory is null");
         }
 
+        Brush BrushBuilder::createCube_(const FloatType size, const std::string& textureName) const {
+            return createCuboid_(vm::bbox3(size / 2.0), textureName, textureName, textureName, textureName, textureName, textureName);
+        }
+
+        Brush BrushBuilder::createCube_(FloatType size, const std::string& leftTexture, const std::string& rightTexture, const std::string& frontTexture, const std::string& backTexture, const std::string& topTexture, const std::string& bottomTexture) const {
+            return createCuboid_(vm::bbox3(size / 2.0), leftTexture, rightTexture, frontTexture, backTexture, topTexture, bottomTexture);
+        }
+
         Brush BrushBuilder::createCuboid_(const vm::bbox3& bounds, const std::string& textureName) const {
             return createCuboid_(bounds, textureName, textureName, textureName, textureName, textureName, textureName);
         }

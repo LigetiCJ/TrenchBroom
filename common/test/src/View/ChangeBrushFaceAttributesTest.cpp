@@ -20,8 +20,9 @@
 #include <gtest/gtest.h>
 
 #include "TestUtils.h"
-#include "Model/BrushNode.h"
 #include "Model/BrushFace.h"
+#include "Model/BrushFaceHandle.h"
+#include "Model/BrushNode.h"
 #include "Model/ChangeBrushFaceAttributesRequest.h"
 #include "Model/EntityNode.h"
 #include "Model/GroupNode.h"
@@ -46,7 +47,7 @@ namespace TrenchBroom {
             const vm::vec3 initialX = face->textureXAxis();
             const vm::vec3 initialY = face->textureYAxis();
 
-            document->select(face);
+            document->select(Model::BrushFaceHandle(brush, face));
 
             const Model::BrushFaceAttributes originalAttribs = face->attribs();
             Model::ChangeBrushFaceAttributesRequest rotate;

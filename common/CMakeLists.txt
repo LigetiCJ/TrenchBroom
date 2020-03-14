@@ -103,6 +103,7 @@ set(COMMON_SOURCE
         ${COMMON_SOURCE_DIR}/Model/BrushBuilder.cpp
         ${COMMON_SOURCE_DIR}/Model/BrushFace.cpp
         ${COMMON_SOURCE_DIR}/Model/BrushFaceAttributes.cpp
+        ${COMMON_SOURCE_DIR}/Model/BrushFaceHandle.cpp
         ${COMMON_SOURCE_DIR}/Model/BrushFacePredicates.cpp
         ${COMMON_SOURCE_DIR}/Model/BrushFaceReference.cpp
         ${COMMON_SOURCE_DIR}/Model/BrushFaceSnapshot.cpp
@@ -610,6 +611,7 @@ set(COMMON_HEADER
         ${COMMON_SOURCE_DIR}/Model/BrushBuilder.h
         ${COMMON_SOURCE_DIR}/Model/BrushFace.h
         ${COMMON_SOURCE_DIR}/Model/BrushFaceAttributes.h
+        ${COMMON_SOURCE_DIR}/Model/BrushFaceHandle.h
         ${COMMON_SOURCE_DIR}/Model/BrushFacePredicates.h
         ${COMMON_SOURCE_DIR}/Model/BrushFaceReference.h
         ${COMMON_SOURCE_DIR}/Model/BrushFaceSnapshot.h

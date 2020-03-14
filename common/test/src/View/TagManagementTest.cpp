@@ -131,7 +131,7 @@ namespace TrenchBroom {
             auto* face = nonMatchingBrush->faces().front();
             ASSERT_FALSE(tag.matches(*face));
 
-            document->select(face);
+            document->select({ nonMatchingBrush, face });
 
             TestCallback callback(0);
             tag.enable(callback, *document);
@@ -204,7 +204,7 @@ namespace TrenchBroom {
             auto* face = nonMatchingBrush->faces().front();
             ASSERT_FALSE(tag.matches(*face));
 
-            document->select(face);
+            document->select({ nonMatchingBrush, face });
 
             TestCallback callback(0);
             tag.enable(callback, *document);
@@ -226,7 +226,7 @@ namespace TrenchBroom {
             auto* face = matchingBrush->faces().front();
             ASSERT_TRUE(tag.matches(*face));
 
-            document->select(face);
+            document->select({ matchingBrush, face });
 
             TestCallback callback(0);
             tag.disable(callback, *document);
@@ -263,7 +263,7 @@ namespace TrenchBroom {
             auto* face = nonMatchingBrush->faces().front();
             ASSERT_FALSE(tag.matches(*face));
 
-            document->select(face);
+            document->select({ nonMatchingBrush, face });
 
             TestCallback callback(0);
             tag.enable(callback, *document);
@@ -285,7 +285,7 @@ namespace TrenchBroom {
             auto* face = matchingBrush->faces().front();
             ASSERT_TRUE(tag.matches(*face));
 
-            document->select(face);
+            document->select({ matchingBrush, face });
 
             TestCallback callback(0);
             tag.disable(callback, *document);
@@ -490,7 +490,7 @@ namespace TrenchBroom {
             Model::ChangeBrushFaceAttributesRequest request;
             request.setContentFlag(0);
 
-            document->select(face);
+            document->select({ brush, face });
             document->setFaceAttributes(request);
             document->deselectAll();
 

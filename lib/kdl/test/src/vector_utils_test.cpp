@@ -241,11 +241,60 @@ namespace kdl {
         ASSERT_EQ(std::vector<double>({ 11.0, 12.0, 13.0 }),
             vec_transform(std::vector<int>({ 1, 2, 3 }), [](auto x) { return x + 10.0; }));
     }
-    
+
     struct X {};
-    
-    TEST(vector_utils_test, vec_transform_move) {
+
+    TEST(vector_utils_test, vec_transform_rvalue) {
         ASSERT_EQ(1u, vec_transform(std::vector<X>{ X() }, [](X&& x) { return std::move(x); }).size());
+    }
+
+    TEST(vector_utils_test, vec_filter) {
+        ASSERT_EQ(std::vector<int>({}), vec_filter(std::vector<int>({}), [](auto) { return false; }));
+        ASSERT_EQ(std::vector<int>({}), vec_filter(std::vector<int>({ 1, 2, 3 }), [](auto) { return false; }));
+        ASSERT_EQ(std::vector<int>({ 1, 2, 3}), vec_filter(std::vector<int>({ 1, 2, 3 }), [](auto) { return true; }));
+        ASSERT_EQ(std::vector<int>({ 2 }), vec_filter(std::vector<int>({ 1, 2, 3 }), [](auto x) { return x % 2 == 0; }));
+    }
+
+    struct MoveOnly {
+        MoveOnly() = default;
+
+        MoveOnly(const MoveOnly& other) = delete;
+        MoveOnly& operator=(const MoveOnly& other) = delete;
+
+        MoveOnly(MoveOnly&& other) noexcept = default;
+        MoveOnly& operator=(MoveOnly&& other) = default;
+    };
+
+    TEST(vector_utils_test, vec_filter_rvalue) {
+        auto vec = std::vector<MoveOnly>{};
+        vec.emplace_back();
+        vec.emplace_back();
+        ASSERT_EQ(2u, vec_filter(std::move(vec), [](const auto&) { return true; }).size());
+    }
+
+    TEST(vector_utils_test, vec_filter_transform) {
+        const auto always_true = [] (const auto&) { return true; };
+        const auto always_false = [] (const auto&) { return false; };
+        const auto identity_clvr = [] (const auto& x){ return x; };
+        const auto identity_rvr  = [] (auto&& x) { return std::move(x); };
+
+        ASSERT_EQ(std::vector<int>({}), vec_filter_transform(std::vector<int>({}), always_false, identity_clvr));
+        ASSERT_EQ(std::vector<int>({}), vec_filter_transform(std::vector<int>({ 1, 2, 3 }), always_false, identity_clvr));
+        ASSERT_EQ(std::vector<int>({ 1, 2, 3}), vec_filter_transform(std::vector<int>({ 1, 2, 3 }), always_true, identity_clvr));
+        ASSERT_EQ(std::vector<int>({ 2 }), vec_filter_transform(std::vector<int>({ 1, 2, 3 }), [](auto x) { return x % 2 == 0; }, identity_clvr));
+
+        ASSERT_EQ(std::vector<int>({}), vec_filter_transform(std::vector<int>({}), always_true, [](auto x) { return x + 10; }));
+        ASSERT_EQ(std::vector<int>({ 11, 12, 13 }),
+            vec_filter_transform(std::vector<int>({ 1, 2, 3 }), always_true, [](auto x) { return x + 10; }));
+        ASSERT_EQ(std::vector<double>({ 11.0, 12.0, 13.0 }),
+            vec_filter_transform(std::vector<int>({ 1, 2, 3 }), always_true, [](auto x) { return x + 10.0; }));
+
+        ASSERT_EQ(std::vector<int>({ 4 }), vec_filter_transform(std::vector<int>({ 1, 2, 3 }), [](auto x) { return x % 2 == 0; }, [](auto x){ return 2 * x; }));
+
+        auto vec = std::vector<MoveOnly>{};
+        vec.emplace_back();
+        vec.emplace_back();
+        ASSERT_EQ(2u, vec_filter_transform(std::move(vec), always_true, identity_rvr).size());
     }
 
     TEST(vector_utils_test, set_difference) {

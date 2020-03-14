@@ -25,7 +25,7 @@
 #include "Model/VisibilityState.h"
 #include "Model/World.h"
 #include "Model/LayerNode.h"
-#include "Model/Group.h"
+#include "Model/GroupNode.h"
 #include "Model/Entity.h"
 #include "Model/BrushNode.h"
 
@@ -48,8 +48,8 @@ namespace TrenchBroom {
                 world = nullptr;
             }
 
-            Group* createTopLevelGroup() {
-                Group* group;
+            GroupNode* createTopLevelGroup() {
+                GroupNode* group;
                 std::tie(group, std::ignore) = createGroupedBrush();
                 return group;
             }
@@ -76,15 +76,15 @@ namespace TrenchBroom {
                 return brush;
             }
 
-            std::tuple<Group*, Group*> createNestedGroup() {
-                Group* outerGroup;
-                Group* innerGroup;
+            std::tuple<GroupNode*, GroupNode*> createNestedGroup() {
+                GroupNode* outerGroup;
+                GroupNode* innerGroup;
                 std::tie(outerGroup, innerGroup, std::ignore) = createdNestedGroupedBrush();
 
                 return std::make_tuple(outerGroup, innerGroup);
             }
 
-            std::tuple<Group*, BrushNode*> createGroupedBrush() {
+            std::tuple<GroupNode*, BrushNode*> createGroupedBrush() {
                 BrushBuilder builder(world, worldBounds);
                 auto* brush = builder.createCube(32.0, "sometex");
                 auto* group = world->createGroup("somegroup");
@@ -95,7 +95,7 @@ namespace TrenchBroom {
                 return std::make_tuple(group, brush);
             }
 
-            std::tuple<Group*, Entity*> createGroupedPointEntity() {
+            std::tuple<GroupNode*, Entity*> createGroupedPointEntity() {
                 BrushBuilder builder(world, worldBounds);
                 auto* entity = world->createEntity();
                 auto* group = world->createGroup("somegroup");
@@ -106,7 +106,7 @@ namespace TrenchBroom {
                 return std::make_tuple(group, entity);
             }
 
-            std::tuple<Group*, Entity*, BrushNode*> createGroupedBrushEntity() {
+            std::tuple<GroupNode*, Entity*, BrushNode*> createGroupedBrushEntity() {
                 BrushBuilder builder(world, worldBounds);
                 auto* brush = builder.createCube(32.0, "sometex");
                 auto* entity = world->createEntity();
@@ -119,7 +119,7 @@ namespace TrenchBroom {
                 return std::make_tuple(group, entity, brush);
             }
 
-            std::tuple<Group*, Group*, BrushNode*> createdNestedGroupedBrush() {
+            std::tuple<GroupNode*, GroupNode*, BrushNode*> createdNestedGroupedBrush() {
                 BrushBuilder builder(world, worldBounds);
                 auto* innerBrush = builder.createCube(32.0, "sometex");
                 auto* innerGroup = world->createGroup("inner");
@@ -431,7 +431,7 @@ namespace TrenchBroom {
         /************* Nested Group Tests *************/
 
         TEST_F(EditorContextTest, testNestedGroupVisible) {
-            Group *outer, *inner;
+            GroupNode *outer, *inner;
             std::tie(outer, inner) = createNestedGroup();
 
             assertVisible(true, inner, VisibilityState::Visibility_Shown, LockState::Lock_Unlocked);
@@ -451,7 +451,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testNestedGroupEditable) {
-            Group *outer, *inner;
+            GroupNode *outer, *inner;
             std::tie(outer, inner) = createNestedGroup();
 
             assertEditable(true, inner, VisibilityState::Visibility_Shown, LockState::Lock_Unlocked);
@@ -470,7 +470,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testNestedGroupPickable) {
-            Group *outer, *inner;
+            GroupNode *outer, *inner;
             std::tie(outer, inner) = createNestedGroup();
 
             assertPickable(false, inner, VisibilityState::Visibility_Shown, LockState::Lock_Unlocked);
@@ -489,7 +489,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testNestedGroupSelectable) {
-            Group *outer, *inner;
+            GroupNode *outer, *inner;
             std::tie(outer, inner) = createNestedGroup();
 
             assertSelectable(false, inner, VisibilityState::Visibility_Shown, LockState::Lock_Unlocked);
@@ -510,7 +510,7 @@ namespace TrenchBroom {
         /************* Grouped Brush Tests *************/
 
         TEST_F(EditorContextTest, testGroupedBrushVisible) {
-            Group* group;
+            GroupNode* group;
             BrushNode* brush;
             std::tie(group, brush) = createGroupedBrush();
 
@@ -528,7 +528,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testGroupedBrushEditable) {
-            Group* group;
+            GroupNode* group;
             BrushNode* brush;
             std::tie(group, brush) = createGroupedBrush();
 
@@ -544,7 +544,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testGroupedBrushPickable) {
-            Group* group;
+            GroupNode* group;
             BrushNode* brush;
             std::tie(group, brush) = createGroupedBrush();
 
@@ -560,7 +560,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testGroupedBrushSelectable) {
-            Group* group;
+            GroupNode* group;
             BrushNode* brush;
             std::tie(group, brush) = createGroupedBrush();
 
@@ -578,7 +578,7 @@ namespace TrenchBroom {
         /************* Grouped Point Entity Tests *************/
 
         TEST_F(EditorContextTest, testGroupedPointEntityVisible) {
-            Group* group;
+            GroupNode* group;
             Entity* entity;
             std::tie(group, entity) = createGroupedPointEntity();
 
@@ -604,7 +604,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testGroupedPointEntityEditable) {
-            Group* group;
+            GroupNode* group;
             Entity* entity;
             std::tie(group, entity) = createGroupedPointEntity();
 
@@ -620,7 +620,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testGroupedPointEntityPickable) {
-            Group* group;
+            GroupNode* group;
             Entity* entity;
             std::tie(group, entity) = createGroupedPointEntity();
 
@@ -636,7 +636,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testGroupedPointEntitySelectable) {
-            Group* group;
+            GroupNode* group;
             Entity* entity;
             std::tie(group, entity) = createGroupedPointEntity();
 
@@ -654,7 +654,7 @@ namespace TrenchBroom {
         /************* Grouped Brush Entity Tests *************/
 
         TEST_F(EditorContextTest, testGroupedBrushEntityVisible) {
-            Group* group;
+            GroupNode* group;
             Entity* entity;
             BrushNode* brush;
             std::tie(group, entity, brush) = createGroupedBrushEntity();
@@ -677,7 +677,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testGroupedBrushEntityEditable) {
-            Group* group;
+            GroupNode* group;
             Entity* entity;
             BrushNode* brush;
             std::tie(group, entity, brush) = createGroupedBrushEntity();
@@ -701,7 +701,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testGroupedBrushEntityPickable) {
-            Group* group;
+            GroupNode* group;
             Entity* entity;
             BrushNode* brush;
             std::tie(group, entity, brush) = createGroupedBrushEntity();
@@ -725,7 +725,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(EditorContextTest, testGroupedBrushEntitySelectable) {
-            Group* group;
+            GroupNode* group;
             Entity* entity;
             BrushNode* brush;
             std::tie(group, entity, brush) = createGroupedBrushEntity();
@@ -751,8 +751,8 @@ namespace TrenchBroom {
         /************* Special Case Tests *************/
 
         TEST_F(EditorContextTest, testNestedGroupedBrushVisible) {
-            Group* outerGroup;
-            Group* innerGroup;
+            GroupNode* outerGroup;
+            GroupNode* innerGroup;
             BrushNode* brush;
             std::tie(outerGroup, innerGroup, brush) = createdNestedGroupedBrush();
 

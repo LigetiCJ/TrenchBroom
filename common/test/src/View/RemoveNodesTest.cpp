@@ -24,7 +24,7 @@
 #include "Model/BrushNode.h"
 #include "Model/BrushBuilder.h"
 #include "Model/Entity.h"
-#include "Model/Group.h"
+#include "Model/GroupNode.h"
 #include "Model/LayerNode.h"
 #include "Model/World.h"
 #include "View/MapDocumentTest.h"
@@ -65,7 +65,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(RemoveNodesTest, removeEmptyGroup) {
-            Model::Group* group = new Model::Group("group");
+            Model::GroupNode* group = new Model::GroupNode("group");
             document->addNode(group, document->currentParent());
 
             document->openGroup(group);
@@ -85,12 +85,12 @@ namespace TrenchBroom {
         }
 
         TEST_F(RemoveNodesTest, recursivelyRemoveEmptyGroups) {
-            Model::Group* outer = new Model::Group("outer");
+            Model::GroupNode* outer = new Model::GroupNode("outer");
             document->addNode(outer, document->currentParent());
 
             document->openGroup(outer);
 
-            Model::Group* inner = new Model::Group("inner");
+            Model::GroupNode* inner = new Model::GroupNode("inner");
             document->addNode(inner, document->currentParent());
 
             document->openGroup(inner);

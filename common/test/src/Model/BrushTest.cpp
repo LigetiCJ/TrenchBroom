@@ -2885,5 +2885,7 @@ namespace TrenchBroom {
             kdl::col_delete_all(minuendNodes);
             kdl::col_delete_all(subtrahendNodes);
         }
+        
+        // TODO: add tests for Brush::intersect
     }
 }

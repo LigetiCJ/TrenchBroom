@@ -47,6 +47,9 @@ namespace TrenchBroom {
             Brush createCube_(FloatType size, const std::string& textureName) const;
             Brush createCube_(FloatType size, const std::string& leftTexture, const std::string& rightTexture, const std::string& frontTexture, const std::string& backTexture, const std::string& topTexture, const std::string& bottomTexture) const;
 
+            Brush createCuboid_(const vm::vec3& size, const std::string& textureName) const;
+            Brush createCuboid_(const vm::vec3& size, const std::string& leftTexture, const std::string& rightTexture, const std::string& frontTexture, const std::string& backTexture, const std::string& topTexture, const std::string& bottomTexture) const;
+
             Brush createCuboid_(const vm::bbox3& bounds, const std::string& textureName) const;
             Brush createCuboid_(const vm::bbox3& bounds, const std::string& leftTexture, const std::string& rightTexture, const std::string& frontTexture, const std::string& backTexture, const std::string& topTexture, const std::string& bottomTexture) const;
 

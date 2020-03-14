@@ -20,7 +20,7 @@
 #include <gtest/gtest.h>
 
 #include "Model/BrushNode.h"
-#include "Model/Entity.h"
+#include "Model/EntityNode.h"
 #include "Model/GroupNode.h"
 #include "Model/LayerNode.h"
 #include "Model/WorldNode.h"
@@ -48,7 +48,7 @@ namespace TrenchBroom {
             Model::LayerNode* newParent = new Model::LayerNode("Layer 2");
             document->addNode(newParent, document->world());
 
-            Model::Entity* entity = new Model::Entity();
+            Model::EntityNode* entity = new Model::EntityNode();
             document->addNode(entity, oldParent);
 
             assert(entity->parent() == oldParent);
@@ -80,7 +80,7 @@ namespace TrenchBroom {
             Model::GroupNode* group = new Model::GroupNode("Group");
             document->addNode(group, document->currentParent());
 
-            Model::Entity* entity = new Model::Entity();
+            Model::EntityNode* entity = new Model::EntityNode();
             document->addNode(entity, group);
 
             ASSERT_TRUE(document->reparentNodes(document->currentParent(), { entity }));
@@ -99,7 +99,7 @@ namespace TrenchBroom {
             Model::GroupNode* inner = new Model::GroupNode("Inner");
             document->addNode(inner, outer);
 
-            Model::Entity* entity = new Model::Entity();
+            Model::EntityNode* entity = new Model::EntityNode();
             document->addNode(entity, inner);
 
             ASSERT_TRUE(document->reparentNodes(document->currentParent(), { entity }));
@@ -114,7 +114,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(ReparentNodesTest, removeEmptyEntity) {
-            Model::Entity* entity = new Model::Entity();
+            Model::EntityNode* entity = new Model::EntityNode();
             document->addNode(entity, document->currentParent());
 
             Model::BrushNode* brush = createBrush();
@@ -133,7 +133,7 @@ namespace TrenchBroom {
             Model::GroupNode* group = new Model::GroupNode("Group");
             document->addNode(group, document->currentParent());
 
-            Model::Entity* entity = new Model::Entity();
+            Model::EntityNode* entity = new Model::EntityNode();
             document->addNode(entity, group);
 
             Model::BrushNode* brush = createBrush();

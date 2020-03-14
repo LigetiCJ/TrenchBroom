@@ -21,7 +21,7 @@
 
 #include <memory>
 
-#include "Model/Entity.h"
+#include "Model/EntityNode.h"
 #include "Model/EntityAttributes.h"
 #include "Model/MapFormat.h"
 #include "Model/LayerNode.h"
@@ -36,15 +36,15 @@ namespace TrenchBroom {
     namespace Model {
         static const std::string TestClassname = "something";
 
-        class EntityTest : public ::testing::Test {
+        class EntityNodeTest : public ::testing::Test {
         protected:
             vm::bbox3d m_worldBounds;
-            Entity* m_entity;
+            EntityNode* m_entity;
             WorldNode* m_world;
 
             void SetUp() override {
                 m_worldBounds = vm::bbox3d(8192.0);
-                m_entity = new Entity();
+                m_entity = new EntityNode();
                 m_entity->addOrUpdateAttribute(AttributeNames::Classname, TestClassname);
                 m_world = new WorldNode(MapFormat::Standard);
             }
@@ -58,27 +58,27 @@ namespace TrenchBroom {
             }
         };
 
-        TEST_F(EntityTest, defaults) {
+        TEST_F(EntityNodeTest, defaults) {
             EXPECT_EQ(vm::vec3::zero(), m_entity->origin());
             EXPECT_EQ(vm::mat4x4::identity(), m_entity->rotation());
             EXPECT_TRUE(m_entity->pointEntity());
-            EXPECT_EQ(Entity::DefaultBounds, m_entity->logicalBounds());
+            EXPECT_EQ(EntityNode::DefaultBounds, m_entity->logicalBounds());
         }
 
-        TEST_F(EntityTest, originUpdateWithSetAttributes) {
+        TEST_F(EntityNodeTest, originUpdateWithSetAttributes) {
             const vm::vec3 newOrigin(10, 20, 30);
-            const vm::bbox3 newBounds(newOrigin - (Entity::DefaultBounds.size() / 2.0),
-                                      newOrigin + (Entity::DefaultBounds.size() / 2.0));
+            const vm::bbox3 newBounds(newOrigin - (EntityNode::DefaultBounds.size() / 2.0),
+                                      newOrigin + (EntityNode::DefaultBounds.size() / 2.0));
 
             m_entity->setAttributes({EntityAttribute("origin", "10 20 30")});
             EXPECT_EQ(newOrigin, m_entity->origin());
             EXPECT_EQ(newBounds, m_entity->logicalBounds());
         }
 
-        TEST_F(EntityTest, originUpdateWithAddOrUpdateAttributes) {
+        TEST_F(EntityNodeTest, originUpdateWithAddOrUpdateAttributes) {
             const vm::vec3 newOrigin(10, 20, 30);
-            const vm::bbox3 newBounds(newOrigin - (Entity::DefaultBounds.size() / 2.0),
-                                      newOrigin + (Entity::DefaultBounds.size() / 2.0));
+            const vm::bbox3 newBounds(newOrigin - (EntityNode::DefaultBounds.size() / 2.0),
+                                      newOrigin + (EntityNode::DefaultBounds.size() / 2.0));
 
             m_entity->addOrUpdateAttribute("origin", "10 20 30");
             EXPECT_EQ(newOrigin, m_entity->origin());
@@ -86,19 +86,19 @@ namespace TrenchBroom {
         }
 
         // Same as above, but add the entity to a world
-        TEST_F(EntityTest, originUpdateInWorld) {
+        TEST_F(EntityNodeTest, originUpdateInWorld) {
             m_world->defaultLayer()->addChild(m_entity);
 
             const vm::vec3 newOrigin(10, 20, 30);
-            const vm::bbox3 newBounds(newOrigin - (Entity::DefaultBounds.size() / 2.0),
-                                      newOrigin + (Entity::DefaultBounds.size() / 2.0));
+            const vm::bbox3 newBounds(newOrigin - (EntityNode::DefaultBounds.size() / 2.0),
+                                      newOrigin + (EntityNode::DefaultBounds.size() / 2.0));
 
             m_entity->addOrUpdateAttribute("origin", "10 20 30");
             EXPECT_EQ(newOrigin, m_entity->origin());
             EXPECT_EQ(newBounds, m_entity->logicalBounds());
         }
 
-        TEST_F(EntityTest, requiresClassnameForRotation) {
+        TEST_F(EntityNodeTest, requiresClassnameForRotation) {
             m_world->defaultLayer()->addChild(m_entity);
             m_entity->removeAttribute(AttributeNames::Classname);
 
@@ -111,7 +111,7 @@ namespace TrenchBroom {
             EXPECT_EQ(vm::mat4x4::identity(), m_entity->rotation());
         }
 
-        TEST_F(EntityTest, rotateAndTranslate) {
+        TEST_F(EntityNodeTest, rotateAndTranslate) {
             m_world->defaultLayer()->addChild(m_entity);
 
             const auto rotMat = vm::rotation_matrix(0.0, 0.0, vm::to_radians(90.0));
@@ -124,7 +124,7 @@ namespace TrenchBroom {
             EXPECT_EQ(rotMat, m_entity->rotation());
         }
 
-        TEST_F(EntityTest, rotationMatrixToEulerAngles) {
+        TEST_F(EntityNodeTest, rotationMatrixToEulerAngles) {
             const auto roll  = vm::to_radians(12.0);
             const auto pitch = vm::to_radians(13.0);
             const auto yaw   = vm::to_radians(14.0);
@@ -138,7 +138,7 @@ namespace TrenchBroom {
             EXPECT_DOUBLE_EQ(14.0, yawPitchRoll.x());
         }
 
-        TEST_F(EntityTest, rotationMatrixToEulerAngles_uniformScale) {
+        TEST_F(EntityNodeTest, rotationMatrixToEulerAngles_uniformScale) {
             const auto roll = vm::to_radians(12.0);
             const auto pitch = vm::to_radians(13.0);
             const auto yaw = vm::to_radians(14.0);
@@ -154,7 +154,7 @@ namespace TrenchBroom {
             EXPECT_DOUBLE_EQ(14.0, yawPitchRoll.x());
         }
 
-        TEST_F(EntityTest, rotationMatrixToEulerAngles_nonUniformScale) {
+        TEST_F(EntityNodeTest, rotationMatrixToEulerAngles_nonUniformScale) {
             const auto roll = vm::to_radians(0.0);
             const auto pitch = vm::to_radians(45.0);
             const auto yaw = vm::to_radians(0.0);
@@ -171,7 +171,7 @@ namespace TrenchBroom {
             EXPECT_DOUBLE_EQ(0.0, yawPitchRoll.x());
         }
 
-        TEST_F(EntityTest, rotationMatrixToEulerAngles_flip) {
+        TEST_F(EntityNodeTest, rotationMatrixToEulerAngles_flip) {
             const auto roll = vm::to_radians(10.0);
             const auto pitch = vm::to_radians(45.0);
             const auto yaw = vm::to_radians(0.0);

@@ -24,7 +24,7 @@
 #include "Assets/TextureManager.h"
 #include "Model/BrushNode.h"
 #include "Model/BrushFace.h"
-#include "Model/Entity.h"
+#include "Model/EntityNode.h"
 #include "Model/GroupNode.h"
 #include "Model/LayerNode.h"
 #include "Model/WorldNode.h"

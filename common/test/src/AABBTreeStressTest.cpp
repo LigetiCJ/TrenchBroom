@@ -27,7 +27,7 @@
 #include "IO/WorldReader.h"
 #include "Model/BrushNode.h"
 #include "Model/BrushFace.h"
-#include "Model/Entity.h"
+#include "Model/EntityNode.h"
 #include "Model/NodeVisitor.h"
 #include "Model/WorldNode.h"
 
@@ -48,7 +48,7 @@ namespace TrenchBroom {
             void doVisit(WorldNode* /* world */) override {}
             void doVisit(LayerNode* /* layer */) override {}
             void doVisit(GroupNode* /* group */) override {}
-            void doVisit(Entity* entity) override {
+            void doVisit(EntityNode* entity) override {
                 doInsert(entity);
             }
             void doVisit(BrushNode* brush) override {

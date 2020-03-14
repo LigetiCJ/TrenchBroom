@@ -241,6 +241,12 @@ namespace kdl {
         ASSERT_EQ(std::vector<double>({ 11.0, 12.0, 13.0 }),
             vec_transform(std::vector<int>({ 1, 2, 3 }), [](auto x) { return x + 10.0; }));
     }
+    
+    struct X {};
+    
+    TEST(vector_utils_test, vec_transform_move) {
+        ASSERT_EQ(1u, vec_transform(std::vector<X>{ X() }, [](X&& x) { return std::move(x); }).size());
+    }
 
     TEST(vector_utils_test, set_difference) {
         using vec = std::vector<int>;

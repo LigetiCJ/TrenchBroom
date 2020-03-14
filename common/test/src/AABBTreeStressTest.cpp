@@ -29,7 +29,7 @@
 #include "Model/BrushFace.h"
 #include "Model/Entity.h"
 #include "Model/NodeVisitor.h"
-#include "Model/World.h"
+#include "Model/WorldNode.h"
 
 #include <vecmath/bbox.h>
 
@@ -45,7 +45,7 @@ namespace TrenchBroom {
         public:
             explicit TreeBuilder(AABB& tree) : m_tree(tree) {}
         private:
-            void doVisit(World* /* world */) override {}
+            void doVisit(WorldNode* /* world */) override {}
             void doVisit(LayerNode* /* layer */) override {}
             void doVisit(GroupNode* /* group */) override {}
             void doVisit(Entity* entity) override {

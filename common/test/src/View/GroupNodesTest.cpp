@@ -38,7 +38,7 @@ namespace TrenchBroom {
         }
 
         TEST_F(GroupNodesTest, createGroupWithOneNode) {
-            Model::BrushNode* brush = createBrush();
+            Model::BrushNode* brush = createBrushNode();
             document->addNode(brush, document->currentParent());
             document->select(brush);
 
@@ -56,10 +56,10 @@ namespace TrenchBroom {
         }
 
         TEST_F(GroupNodesTest, createGroupWithPartialBrushEntity) {
-            Model::BrushNode* brush1 = createBrush();
+            Model::BrushNode* brush1 = createBrushNode();
             document->addNode(brush1, document->currentParent());
 
-            Model::BrushNode* brush2 = createBrush();
+            Model::BrushNode* brush2 = createBrushNode();
             document->addNode(brush2, document->currentParent());
 
             Model::EntityNode* entity = new Model::EntityNode();
@@ -87,10 +87,10 @@ namespace TrenchBroom {
         }
 
         TEST_F(GroupNodesTest, createGroupWithFullBrushEntity) {
-            Model::BrushNode* brush1 = createBrush();
+            Model::BrushNode* brush1 = createBrushNode();
             document->addNode(brush1, document->currentParent());
 
-            Model::BrushNode* brush2 = createBrush();
+            Model::BrushNode* brush2 = createBrushNode();
             document->addNode(brush2, document->currentParent());
 
             Model::EntityNode* entity = new Model::EntityNode();
@@ -127,7 +127,7 @@ namespace TrenchBroom {
                               "\"origin\" \"0 0 0\""
                               "}");
 
-            Model::BrushNode* brush = createBrush();
+            Model::BrushNode* brush = createBrushNode();
             document->addNode(brush, document->currentParent());
             document->select(brush);
 
@@ -154,7 +154,7 @@ namespace TrenchBroom {
         TEST_F(GroupNodesTest, undoMoveGroupContainingBrushEntity) {
             // Test for issue #1715
 
-            Model::BrushNode* brush1 = createBrush();
+            Model::BrushNode* brush1 = createBrushNode();
             document->addNode(brush1, document->currentParent());
 
             Model::EntityNode* entity = new Model::EntityNode();
@@ -178,7 +178,7 @@ namespace TrenchBroom {
         TEST_F(GroupNodesTest, rotateGroupContainingBrushEntity) {
             // Test for issue #1754
 
-            Model::BrushNode* brush1 = createBrush();
+            Model::BrushNode* brush1 = createBrushNode();
             document->addNode(brush1, document->currentParent());
 
             Model::EntityNode* entity = new Model::EntityNode();

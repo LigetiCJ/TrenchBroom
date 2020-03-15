@@ -54,7 +54,7 @@ namespace TrenchBroom {
             void SetUp() override;
             void TearDown() override;
 
-            Model::BrushNode* createBrush(const std::string& textureName = "texture");
+            Model::BrushNode* createBrushNode(const std::string& textureName = "texture");
         };
 
         class ValveMapDocumentTest : public MapDocumentTest {

@@ -52,7 +52,7 @@ namespace TrenchBroom {
             Model::EntityNode* entity = new Model::EntityNode();
             document->addNode(entity, layer);
 
-            Model::BrushNode* brush = createBrush();
+            Model::BrushNode* brush = createBrushNode();
             document->addNode(brush, entity);
 
             document->removeNode(brush);
@@ -70,7 +70,7 @@ namespace TrenchBroom {
 
             document->openGroup(group);
 
-            Model::BrushNode* brush = createBrush();
+            Model::BrushNode* brush = createBrushNode();
             document->addNode(brush, document->currentParent());
 
             document->removeNode(brush);
@@ -95,7 +95,7 @@ namespace TrenchBroom {
 
             document->openGroup(inner);
 
-            Model::BrushNode* brush = createBrush();
+            Model::BrushNode* brush = createBrushNode();
             document->addNode(brush, document->currentParent());
 
             document->removeNode(brush);

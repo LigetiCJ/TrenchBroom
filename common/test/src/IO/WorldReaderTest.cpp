@@ -181,8 +181,8 @@ namespace TrenchBroom {
             Model::Node* defaultLayer = world->children().front();
             ASSERT_EQ(1u, defaultLayer->childCount());
 
-            Model::BrushNode* brush = static_cast<Model::BrushNode*>(defaultLayer->children().front());
-            const std::vector<Model::BrushFace*>& faces = brush->faces();
+            Model::BrushNode* brushNode = static_cast<Model::BrushNode*>(defaultLayer->children().front());
+            const std::vector<Model::BrushFace*>& faces = brushNode->brush().faces();
             ASSERT_EQ(6u, faces.size());
 
             const Model::BrushFace* face1 = findFaceByPoints(faces, vm::vec3(0.0, 0.0, -16.0), vm::vec3(0.0, 0.0, 0.0),
@@ -231,8 +231,8 @@ namespace TrenchBroom {
             Model::Node* defaultLayer = world->children().front();
             ASSERT_EQ(1u, defaultLayer->childCount());
 
-            Model::BrushNode* brush = static_cast<Model::BrushNode*>(defaultLayer->children().front());
-            const std::vector<Model::BrushFace*>& faces = brush->faces();
+            Model::BrushNode* brushNode = static_cast<Model::BrushNode*>(defaultLayer->children().front());
+            const std::vector<Model::BrushFace*>& faces = brushNode->brush().faces();
             ASSERT_EQ(6u, faces.size());
 
             Model::BrushFace* face = findFaceByPoints(faces, vm::vec3(0.0, 0.0, -16.0), vm::vec3(0.0, 0.0, 0.0),
@@ -269,8 +269,8 @@ namespace TrenchBroom {
             Model::Node* defaultLayer = world->children().front();
             ASSERT_EQ(1u, defaultLayer->childCount());
 
-            Model::BrushNode* brush = static_cast<Model::BrushNode*>(defaultLayer->children().front());
-            const std::vector<Model::BrushFace*> faces = brush->faces();
+            Model::BrushNode* brushNode = static_cast<Model::BrushNode*>(defaultLayer->children().front());
+            const std::vector<Model::BrushFace*> faces = brushNode->brush().faces();
             ASSERT_EQ(6u, faces.size());
 
             ASSERT_TRUE(findFaceByPoints(faces, vm::vec3(0.0, 0.0, -16.0), vm::vec3(0.0, 0.0, 0.0),
@@ -311,8 +311,8 @@ namespace TrenchBroom {
             Model::Node* defaultLayer = world->children().front();
             ASSERT_EQ(1u, defaultLayer->childCount());
 
-            Model::BrushNode* brush = static_cast<Model::BrushNode*>(defaultLayer->children().front());
-            const std::vector<Model::BrushFace*> faces = brush->faces();
+            Model::BrushNode* brushNode = static_cast<Model::BrushNode*>(defaultLayer->children().front());
+            const std::vector<Model::BrushFace*> faces = brushNode->brush().faces();
             ASSERT_EQ(6u, faces.size());
             ASSERT_TRUE(findFaceByPoints(faces, vm::vec3(308.0, 108.0, 176.0), vm::vec3(308.0, 132.0, 176.0),
                                          vm::vec3(252.0, 132.0, 176.0)) != nullptr);

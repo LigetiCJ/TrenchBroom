@@ -34,18 +34,16 @@ namespace TrenchBroom {
             WorldNode world(MapFormat::Standard);
 
             BrushBuilder builder(&world, worldBounds);
-            const BrushNode* cube = builder.createCube(128.0, "someName");
-            ASSERT_TRUE(cube != nullptr);
-            ASSERT_EQ(vm::bbox3d(-64.0, +64.0), cube->logicalBounds());
+            const Brush cube = builder.createCube_(128.0, "someName");
+            ASSERT_TRUE(cube.fullySpecified());
+            ASSERT_EQ(vm::bbox3d(-64.0, +64.0), cube.bounds());
 
-            const std::vector<BrushFace*>& faces = cube->faces();
+            const std::vector<BrushFace*>& faces = cube.faces();
             ASSERT_EQ(6u, faces.size());
 
             for (size_t i = 0; i < faces.size(); ++i) {
                 ASSERT_EQ(std::string("someName"), faces[i]->textureName());
             }
-
-            delete cube;
         }
 
         TEST(BrushBuilderTest, createCubeDefaults) {
@@ -62,11 +60,11 @@ namespace TrenchBroom {
             defaultAttribs.setColor(Color(255, 255, 255, 255));
 
             BrushBuilder builder(&world, worldBounds, defaultAttribs);
-            const BrushNode* cube = builder.createCube(128.0, "someName");
-            ASSERT_TRUE(cube != nullptr);
-            ASSERT_EQ(vm::bbox3d(-64.0, +64.0), cube->logicalBounds());
+            const Brush cube = builder.createCube_(128.0, "someName");
+            ASSERT_TRUE(cube.fullySpecified());
+            ASSERT_EQ(vm::bbox3d(-64.0, +64.0), cube.bounds());
 
-            const std::vector<BrushFace*>& faces = cube->faces();
+            const std::vector<BrushFace*>& faces = cube.faces();
             ASSERT_EQ(6u, faces.size());
 
             for (size_t i = 0; i < faces.size(); ++i) {
@@ -79,8 +77,6 @@ namespace TrenchBroom {
                 ASSERT_EQ(0.1f, faces[i]->surfaceValue());
                 ASSERT_EQ(Color(255, 255, 255, 255), faces[i]->color());
             }
-
-            delete cube;
         }
     }
 }

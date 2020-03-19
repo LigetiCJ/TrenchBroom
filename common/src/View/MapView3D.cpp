@@ -277,8 +277,9 @@ namespace TrenchBroom {
                 }
             }
 
-            void doVisit(const Model::BrushNode* brush) override   {
-                for (const Model::BrushVertex* vertex : brush->vertices()) {
+            void doVisit(const Model::BrushNode* brushNode) override   {
+                const Model::Brush& brush = brushNode->brush();
+                for (const Model::BrushVertex* vertex : brush.vertices()) {
                     addPoint(vertex->position());
                 }
             }
@@ -325,8 +326,9 @@ namespace TrenchBroom {
                 }
             }
 
-            void doVisit(const Model::BrushNode* brush) override   {
-                for (const auto* vertex : brush->vertices()) {
+            void doVisit(const Model::BrushNode* brushNode) override   {
+                const Model::Brush& brush = brushNode->brush();
+                for (const auto* vertex : brush.vertices()) {
                     for (size_t j = 0; j < 4; ++j) {
                         addPoint(vm::vec3f(vertex->position()), m_frustumPlanes[j]);
                     }
